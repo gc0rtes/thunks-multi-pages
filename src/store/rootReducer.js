@@ -2,11 +2,11 @@
 import { combineReducers } from "redux";
 import feedReducer from "./feed/reducer";
 import postPageReducer from "./postPage/reducer";
-import userReducer from "./user/reducer";
+import authReducer from "./auth/reducer";
 
 //here is where I defined my names of state /slices
 export default combineReducers({
   feed: feedReducer,
-  user: userReducer,
   postPage: postPageReducer,
+  auth: authReducer,
 });

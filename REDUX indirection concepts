@@ -12,9 +12,12 @@ Ex:
 2)action creator
 function that we use to make actions
 
-    useEffect(() => {
-        dispatch(fetchPost(id));
-      }, [dispatch, id]);
+    export function userLoggedIn(data) {
+  return {
+    type: "authPage/userLoggedIn",
+    payload: data,
+  };
+}
 
 
 3)thunk action
