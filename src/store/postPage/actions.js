@@ -16,23 +16,30 @@ export function postFullyFetched(data) {
   };
 }
 
-export function fetchSpecificPost(id) {
+//this function/action receive the parameter "id" from PostPage
+export function fetchPost(id) {
   return async function thunk(dispatch, getState) {
-    //indica que comecou o data loading
-    dispatch(startLoadingPost());
+    try {
+      //indica que comecou o data loading
+      dispatch(startLoadingPost());
 
-    const [postResponse, commentsResponse] = await Promise.all([
-      axios.get(`${API_URL}/posts/${id}`),
-      axios.get(`${API_URL}/posts/${id}/comments`),
-    ]);
-    console.log("what is postResponse", postResponse);
-    console.log("what is commentsResponse", commentsResponse);
-    //envia para a acao
-    dispatch(
-      postFullyFetched({
-        post: postResponse.data,
-        comments: commentsResponse.data,
-      })
-    );
+      // we use Promise.all because this way, the two requests can be done at the same time, which is faster, instead of just two calls after each other
+      const [postResponse, commentsResponse] = await Promise.all([
+        axios.get(`${API_URL}/posts/${id}`),
+        axios.get(`${API_URL}/posts/${id}/comments`),
+      ]);
+      console.log("what is postResponse", postResponse);
+      console.log("what is commentsResponse", commentsResponse);
+
+      //Dispatch responses to Action  postFullyFetched
+      dispatch(
+        postFullyFetched({
+          post: postResponse.data,
+          comments: commentsResponse.data,
+        })
+      );
+    } catch (e) {
+      console.log("error from try/catch", e.message);
+    }
   };
 }

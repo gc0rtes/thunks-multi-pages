@@ -1,0 +1,29 @@
+1)action
+an object with type + payload properties
+Ex:
+
+    export function postFullyFetched(data) {
+      return {
+        type: "postPage/postFullyFetched",
+        payload: data,
+      };
+    }
+
+2)action creator
+function that we use to make actions
+
+    useEffect(() => {
+        dispatch(fetchPost(id));
+      }, [dispatch, id]);
+
+
+3)thunk action
+callback function that receives dispatch + getState, and then orchestrates other actions
+
+    export const fetchPosts = () => async (dispatch, getState) => {
+
+4)thunk action creator
+function that we use to make thunk actions
+
+    export function fetchPost(id) {
+      return async function thunk(dispatch, getState) {

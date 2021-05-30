@@ -1,6 +1,6 @@
 const initialState = {
   loading: false,
-  all: [],
+  posts: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action) {
       const newPosts = action.payload;
       return {
         // ...state, //in this case we won't need do this copy the state again
-        all: [...state.all, ...newPosts], //we are getting the data with offset of 5, so we need to keeping what we have and then adding more when requested
+        posts: [...state.posts, ...newPosts], //we are getting the data with offset of 5, so we need to keeping what we have and then adding more when requested
       };
     }
     case "START_LOADING": {

@@ -1,12 +1,12 @@
 //Create a combine root reducer
-import postReducer from "./posts/reducer";
-import userReducer from "./user/reducer";
-import specificPostReducer from "./postPage/reducer";
 import { combineReducers } from "redux";
+import feedReducer from "./feed/reducer";
+import postPageReducer from "./postPage/reducer";
+import userReducer from "./user/reducer";
 
 //here is where I defined my names of state /slices
 export default combineReducers({
-  posts: postReducer,
+  feed: feedReducer,
   user: userReducer,
-  specificPost: specificPostReducer,
+  postPage: postPageReducer,
 });

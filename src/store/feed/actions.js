@@ -18,7 +18,7 @@ export const fetchPosts = () => async (dispatch, getState) => {
     const state = getState();
 
     //Add offset
-    const offset = state.posts.all.length; //primeira vez offset=0 e vai fazer fetch de limite 5/ a segunda vez offset igual a 5 (igual o length da array) e vai puxar a partir do elemento cinco da array ( a parte inicial vai estar armazenada no reduxstate ). Na 3a volta, offset = 10 e vai puxar a aprti do elemento 10 na array...
+    const offset = state.feed.posts.length; //primeira vez offset=0 e vai fazer fetch de limite 5/ a segunda vez offset igual a 5 (igual o length da array) e vai puxar a partir do elemento cinco da array ( a parte inicial vai estar armazenada no reduxstate ). Na 3a volta, offset = 10 e vai puxar a aprti do elemento 10 na array...
 
     console.log("what is offset", offset);
 

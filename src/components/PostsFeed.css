@@ -5,5 +5,21 @@
   color: white;
   font-weight: bold;
   font-size: 0.85em;
-  background: #555;
+  background: rgb(147, 20, 163);
 }
+/* 
+.PostsFeed {
+  min-height: 12rem;
+  list-style: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  margin: 0.5rem;
+  padding: 0;
+
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem;
+  color: white;
+} */
