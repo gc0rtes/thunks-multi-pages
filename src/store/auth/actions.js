@@ -22,8 +22,8 @@ export const logout = () => ({
   type: "authPage/LOGOUT",
 });
 
-// A thunk creator
-export function login(email, password) {
+// A thunk creator to make a request to /login
+export function login(email, password, history) {
   // Return the thunk itself, i.e. a function
   return async function thunk(dispatch, getState) {
     try {
@@ -51,7 +51,11 @@ export function login(email, password) {
       //here is the user profile!!
       const profile = profileResponse.data;
       // console.log("what is my userProfile", userProfile);
+
       dispatch(setProfile(profile));
+
+      //if everthing went well we send the user to homePage
+      history.push("/");
     } catch (e) {
       console.log("error from try/catch", e.message);
     }
@@ -80,7 +84,7 @@ export const signup = (name, email, password) => async (dispatch, getSate) => {
     const profileResponse = await axios.get(`${API_URL}/me`, {
       headers: { Authorization: `Bearer ${jwt}` },
     });
-    console.log("what is profileResponse", profileResponse);
+    // console.log("what is profileResponse", profileResponse);
     const profile = profileResponse.data;
     dispatch(setProfile(profile));
   } catch (e) {

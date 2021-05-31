@@ -11,11 +11,13 @@ import CreatePost from "./pages/CreatePost";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "./store/auth/selectors";
 import { logout } from "./store/auth/actions";
-// import { useEffect } from "react";
+
+//lets import useEffect to check if our browser has already a token on local storage
+import { useEffect } from "react";
 
 const NavBar = () => {
   const profile = useSelector(getProfile);
-  console.log("whats is profile", profile);
+  // console.log("whats is profile", profile);
   const dispatch = useDispatch();
   return (
     <div style={{ display: "flex" }}>
@@ -57,11 +59,12 @@ const NavBar = () => {
 };
 
 export default function App() {
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  //   useEffect(() => {
-  //     dispatch(bootstrapLoginState);
-  //   }, [dispatch]);
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    console.log("is there a token in the browser?", jwt);
+  }, []);
 
   return (
     <div>

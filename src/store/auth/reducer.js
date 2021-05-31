@@ -18,6 +18,7 @@ export default function reducer(state = initialState, action) {
       };
     }
     case "authPage/LOGOUT": {
+      localStorage.removeItem("jwt");
       return {
         profile: null,
         token: null,

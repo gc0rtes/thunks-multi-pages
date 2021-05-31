@@ -25,7 +25,10 @@ export default function PostsFeed() {
 
   //we still call the data fetching inside useEffect
   useEffect(() => {
-    dispatch(fetchPosts()); //call/dispatch the ACTION from posts store to fetch data
+    //I'm telling do it the first time! Not everytime I go to this page!
+    if (!posts.length) {
+      dispatch(fetchPosts()); //call/dispatch the ACTION from posts store to fetch data
+    }
   }, []);
 
   return (
