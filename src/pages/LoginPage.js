@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 //to dispatch and select our actions
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 //import my function ACTION
-import { login, userLoggedIn } from "../store/auth/actions";
+import { login } from "../store/auth/actions";
 
 //Use history to send user to another page
 import { useHistory } from "react-router-dom";

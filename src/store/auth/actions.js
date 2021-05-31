@@ -24,47 +24,31 @@ export const logout = () => ({
 
 // A thunk creator to make a request to /login
 export function login(email, password, history) {
-  // Return the thunk itself, i.e. a function
   return async function thunk(dispatch, getState) {
     try {
-      //request to the server the JWToken
       const loginResponse = await axios.post(`${API_URL}/login/`, {
         email: email,
         password: password,
       });
-      // console.log("what is loginResponse", loginResponse);
-
-      //here is my token!!
-      // console.log("what is my JWToken", loginResponse.data.jwt);
       const jwtoken = loginResponse.data.jwt;
+
       dispatch(setToken(jwtoken));
 
-      //Send the TWKoen to local broswer storage so it persists even when refresh page browser
-      localStorage.setItem("jwt", jwtoken);
+      localStorage.setItem("jwtoken", jwtoken);
 
-      //request to the server the user profile
-      const profileResponse = await axios.get(`${API_URL}/me`, {
-        headers: { Authorization: `Bearer ${jwtoken}` },
-      });
-      // console.log("what is my profileResponse", profileResponse);
+      dispatch(bootstrapLoginState(jwtoken));
 
-      //here is the user profile!!
-      const profile = profileResponse.data;
-      // console.log("what is my userProfile", userProfile);
+      // const profileResponse = await axios.get(`${API_URL}/me`, {
+      //   headers: { Authorization: `Bearer ${jwtoken}` },
+      // });
+      // const profile = profileResponse.data;
+      // dispatch(setProfile(profile));
 
-      dispatch(setProfile(profile));
-
-      //if everthing went well we send the user to homePage
+      //if everthing went well we'll send the user to homePage
       history.push("/");
     } catch (e) {
       console.log("error from try/catch", e.message);
     }
-
-    // console.log(
-    //   "TODO: make login request, get an access token",
-    //   email,
-    //   password
-    // );
   };
 }
 
@@ -76,25 +60,35 @@ export const signup = (name, email, password) => async (dispatch, getSate) => {
       email: email,
       password: password,
     });
-    console.log("what is signupResponse", signupResponse);
-    const jwt = signupResponse.data.jwt;
-    dispatch(setToken(jwt));
+    const jwtoken = signupResponse.data.jwt;
 
-    //request to the server the user profile
+    dispatch(setToken(jwtoken));
+
+    localStorage.setItem("jwtoken", jwtoken);
+
+    dispatch(bootstrapLoginState(jwtoken));
+
+    // //request to the server the user profile
+    // const profileResponse = await axios.get(`${API_URL}/me`, {
+    //   headers: { Authorization: `Bearer ${jwt}` },
+    // });
+    // const profile = profileResponse.data;
+    // dispatch(setProfile(profile));
+  } catch (e) {
+    console.log(e.message);
+  }
+};
+
+// The profile request is the same on login and signup. Make a thunk specific to setProfile and DRY the code.
+//Create a new thunk called 'bootstrapLoginState'  and dispatch the thunk once whenever the app is rendered
+export const bootstrapLoginState = (token) => async (dispatch, getState) => {
+  try {
     const profileResponse = await axios.get(`${API_URL}/me`, {
-      headers: { Authorization: `Bearer ${jwt}` },
+      headers: { Authorization: `Bearer ${token}` },
     });
-    // console.log("what is profileResponse", profileResponse);
     const profile = profileResponse.data;
     dispatch(setProfile(profile));
   } catch (e) {
     console.log(e.message);
   }
 };
-
-// //Create a new thunk called 'bootstrapLoginState'  and dispatch the thunk once whenever the app is rendered
-// export const bootstrapLogin = () => async (dispatch, getState) =>  {
-//   //Get the TWKoen from the local broswer storage
-//   const jwt = localStorage.getItem("jwt");
-
-// }

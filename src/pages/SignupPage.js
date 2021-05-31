@@ -2,17 +2,22 @@ import { useState } from "react";
 import { signup } from "../store/auth/actions";
 import { useDispatch } from "react-redux";
 
-const Signup = () => {
+//Use history to send user to another page
+import { useHistory } from "react-router-dom";
+
+export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  //add this on the root of default function
   const dispatch = useDispatch();
+  //add this on the root of default function
+  const history = useHistory();
 
   const onSignupSubmit = (e) => {
     e.preventDefault();
-    dispatch(signup(name, email, password));
-    // 1. An action (a thunk) to make a request to /signup
-    // 2
+    dispatch(signup(name, email, password, history));
   };
 
   return (
@@ -47,6 +52,4 @@ const Signup = () => {
       </form>
     </div>
   );
-};
-
-export default Signup;
+}
