@@ -6,8 +6,6 @@ const savePosts = (allPosts) => ({ type: "STORE_POSTS", payload: allPosts });
 const startLoading = () => ({ type: "START_LOADING" });
 const stopLoading = () => ({ type: "STOP_LOADING" });
 
-//const newPost
-
 // Parametrized thunk,  my thunk  function can freely orchestrate any number of subsequent dispatches!!
 export const fetchPosts = () => async (dispatch, getState) => {
   try {

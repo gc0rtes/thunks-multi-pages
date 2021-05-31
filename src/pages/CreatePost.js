@@ -2,6 +2,8 @@ import { useState } from "react";
 // import { createPost } from "../store/posts/actions";
 import { useDispatch } from "react-redux";
 
+import { createPost } from "../store/postPage/actions";
+
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -10,7 +12,7 @@ const CreatePost = () => {
   const onPostSubmit = (e) => {
     e.preventDefault();
     console.log({ title, content });
-    // dispatch(createPost(title, content));
+    dispatch(createPost(title, content));
   };
 
   return (

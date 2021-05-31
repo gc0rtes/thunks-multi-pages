@@ -16,6 +16,9 @@ export function postFullyFetched(data) {
   };
 }
 
+//const newPost
+const oneNewPost = (post) => ({ type: "NEW_POST", payload: post });
+
 //this function/action receive the parameter "id" from PostPage
 export function fetchPost(id) {
   return async function thunk(dispatch, getState) {
@@ -43,3 +46,23 @@ export function fetchPost(id) {
     }
   };
 }
+
+//Create a new Post
+export const createPost = (title, content) => async (dispatch, getState) => {
+  try {
+    const allState = getState();
+    const token = allState.auth.token;
+    // console.log(token);
+    const response = await axios.post(
+      `${API_URL}/posts`,
+      { title, content },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    console.log("whats is postResponse?", response);
+
+    dispatch(oneNewPost(response.data));
+  } catch (e) {
+    console.log("error from try/catch", e.message);
+  }
+};

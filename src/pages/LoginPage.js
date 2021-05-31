@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 //to dispatch and select our actions
 import { useDispatch } from "react-redux";

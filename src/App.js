@@ -10,7 +10,7 @@ import CreatePost from "./pages/CreatePost";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "./store/auth/selectors";
-import { logout, bootstrapLoginState } from "./store/auth/actions";
+import { logout, bootstrapLoginState, setToken } from "./store/auth/actions";
 
 //lets import useEffect to check if our browser has already a token on local storage
 import { useEffect } from "react";
@@ -65,7 +65,10 @@ export default function App() {
     const jwtoken = localStorage.getItem("jwtoken");
     console.log("is there a token in the browser?", jwtoken);
     if (jwtoken) {
+      //after we check that exists a token, we get the profile
       dispatch(bootstrapLoginState(jwtoken));
+      //however we need set this token on our ReduxState also!
+      dispatch(setToken(jwtoken));
     }
   }, []);
 
